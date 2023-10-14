@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>2. Laboratorijas darbs</title>
+</head>
+<body>
+    <div id="students">
+        <p>Kārlis Rūdolfs Birznieks</p>
+        <p>221RDB412</p>
+    </div>
+
+    <input type="text" id="input-field" placeholder="Ievadiet skaitli">
+    <button id="ok-button">OK</button>
+    <button id="new-game-button">New Game</button>
+
+    <p id="result-message"></p>
+
+    <script>
+        let generatedNumber;
+        let attempts = 0;
+
+        function newGame() {
+            document.getElementById("input-field").value = "";
+            generatedNumber = Math.floor(Math.random() * 10) + 1;
+            attempts = 0;
+        }
+
+        function checkGuess() {
+            const userInput = document.getElementById("input-field").value;
+            const result = document.getElementById("result-message");
+
+            if (!userInput.match(/^\d+$/) || userInput < 1 || userInput > 10) {
+
+                result.textContent = "error";
+
+            } else {
+                const userNumber = parseInt(userInput, 10);
+                attempts++;
+
+                if (userNumber === generatedNumber) {
+                    result.textContent = "You win!";
+                } else if (attempts > 3) {
+                    result.textContent = "You lose!";
+                } else if (userNumber > generatedNumber) {
+                    result.textContent = "My number is less than yours";
+                } else {
+                    result.textContent = "My number is greater than yours";
+                }
+            }
+        }
+
+        document.getElementById("new-game-button").addEventListener("click", newGame);
+        document.getElementById("ok-button").addEventListener("click", checkGuess);
+
+    </script>
+</body>
+</html>
